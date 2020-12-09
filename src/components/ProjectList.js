@@ -21,6 +21,8 @@ function ProjectList(props) {
             liveLink={project.liveLink}
             languages={project.languages}
             description={project.description}
+            id = {project.id}
+            key = {project.id}
             />
         })}
       </React.Fragment>

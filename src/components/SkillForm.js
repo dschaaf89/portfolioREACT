@@ -6,10 +6,10 @@ function SkillList(props){
   const firestore = useFirestore();
   function addSkillToFirestore(event){
     event.preventDefault();
-    //props.OnProjectCreation();
+    props.onNewSkillCreation();
     return firestore.collection('skills').add(
       {
-        skill:event.target.skill.value,
+        name:event.target.skill.value,
   
         
       }); 
@@ -28,6 +28,6 @@ function SkillList(props){
   )
 }
 SkillList.propTypes = {
-  onProjectCreation: PropTypes.func
+  onNewSkillCreation: PropTypes.func
 }
 export default SkillList;

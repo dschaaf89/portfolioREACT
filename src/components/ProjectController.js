@@ -1,19 +1,13 @@
 import React from 'react';
 import { withFirestore, isLoaded  } from 'react-redux-firebase';
-import Bio from './Bio';
-import BioForm from './BioForm';
 import ProjectForm from './ProjectForm';
 import ProjectList from './ProjectList';
-import JobForm from './JobForm';
-import JobList from './JobList';
-import EducationForm from './EducationForm';
-import EducationList from './EducationList';
-import SkillsForm from './SkillForm';
-import SkillsList from './SkillList';
-import * as a from './../actions';
+import EditProjectForm from './EditProjectForm'
+import ProjectDetail from './ProjectDetail'
+import * as a from '../actions';
 import { connect } from 'react-redux';
 
-class PortfolioController extends React.Component {
+class ProjectController extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,6 +16,7 @@ class PortfolioController extends React.Component {
   }
 
   handleProjectClick = () => {
+    
     if (this.state.selectedProject != null) {
       this.setState({
         selectedProject: null,
@@ -33,11 +28,26 @@ class PortfolioController extends React.Component {
       dispatch(action);
     }
   }
+
+  handleChangingSelectedProject = (id) => {
+    this.props.firestore.get({collection:'projects', doc : id}).then((project)=>{
+      const firestoreProject = {
+        name: project.get('name'),
+        languages: project.get('languages'),
+        repo: project.get('repo'),
+        liveLink: project.get('liveLink'),
+        description: project.get('description'),
+        id: project.id
+      }
+      this.setState({selectedProject:firestoreProject});
+    });
+  }
  
   handleAddingNewProjectToList = (newProject) => {
     const { dispatch } = this.props;
     const action = a.toggleProjectForm();
     dispatch(action);
+    
   }
 
   handleDeletingProject = (id) => {
@@ -47,10 +57,10 @@ class PortfolioController extends React.Component {
   handleEditProjectClick = () => {
     this.setState({editing: true});
   }
-  handleEditingProjectInList = (projectToEdit) => {
-    const { dispatch } = this.props;
-    const action = a.addProject(projectToEdit);
-    dispatch(action);
+  handleEditingProjectInList = () => {
+    //const { dispatch } = this.props;
+    // const action = a.addProject(projectToEdit);
+    // dispatch(action);
     this.setState({
       editing: false,
       selectedProject: null
@@ -84,7 +94,7 @@ class PortfolioController extends React.Component {
     );
     }
 }
-PortfolioController.propTypes ={
+ProjectController.propTypes ={
 
 }
 const mapStateToProps = state => {
@@ -92,5 +102,5 @@ const mapStateToProps = state => {
   projectFormVisibleOnPage:state.projectFormVisibleOnPage
 }
 }
-PortfolioController = connect(mapStateToProps)(PortfolioController)
-export default withFirestore(PortfolioController)
+ProjectController = connect(mapStateToProps)(ProjectController)
+export default withFirestore(ProjectController)

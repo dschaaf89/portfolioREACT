@@ -10,14 +10,15 @@ function SkillList(props) {
   ]);
   const skill = useSelector(state => state.firestore.ordered.skills);
   if (isLoaded(skill)) {
-    
     return (
       <React.Fragment>
         <hr />
         {skill.map((skill) => {
           return <Skill
             whenSkillClicked={props.onSkillSelection}
-            skill={skill.skill}
+            name={skill.name}
+            id = {skill.id}
+            key = {skill.id}
             />
         })}
       </React.Fragment>

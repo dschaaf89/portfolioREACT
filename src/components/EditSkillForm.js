@@ -2,60 +2,38 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useFirestore } from 'react-redux-firebase';
 
-function EditProjectForm(props){
-  const {project} = props;
+function EditSkillForm(props){
+  const {skill} = props;
   const firestore = useFirestore();
-  function handleEditProjectFormSubmission(event){
+  function handleEditSkillFormSubmission(event){
     event.preventDefault();
-    props.onEditProject();
+    props.onEditSkill();
     const propsToUpdate =
       {
         name:event.target.name.value,
-        repo:event.target.repo.value,
-        liveLink:event.target.liveLink.value,
-        languages:event.target.languages.value,
-        description:event.target.description.value
+     
         
       };
-    return firestore.update({collection: 'projects', doc:project.id}, propsToUpdate) 
+    return firestore.update({collection: 'skills', doc:skill.id}, propsToUpdate) 
   }
   return (
     <React.Fragment>
-      <form onSubmit = {handleEditProjectFormSubmission}>
+      <form onSubmit = {handleEditSkillFormSubmission}>
         <input
           type='text'
           name='name'
-          defaultValue={project.name} />
-        <input
-          type='text'
-          name='repo'
-          defaultValue={project.repo} />
-
-      
-        <input
-          type='text'
-          name='liveLink'
-          defaultValue={project.liveLink} />
-
-          <input
-          type='text'
-          name='languages'
-          defaultValue={project.languages} />
-
-          <textarea
-          type='text'
-          name='description'
-          defaultValue={project.description} />
+          defaultValue={skill.name} />
+        
 
         <button type='submit'>Submit</button>
       </form>
     </React.Fragment>
   )
 }
-EditProjectForm.propTypes = {
-  onProjectCreation: PropTypes.func
+EditSkillForm.propTypes = {
+  onSkillCreation: PropTypes.func
 }
-export default EditProjectForm;
+export default EditSkillForm;
 
 
 // function EditTicketForm (props) {

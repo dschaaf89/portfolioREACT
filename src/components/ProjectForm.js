@@ -6,7 +6,7 @@ function ProjectForm(props){
   const firestore = useFirestore();
   function addProjectToFirestore(event){
     event.preventDefault();
-    //props.OnProjectCreation();
+    props.onNewProjectCreation();
     return firestore.collection('projects').add(
       {
         name:event.target.name.value,

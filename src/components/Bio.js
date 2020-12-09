@@ -7,9 +7,7 @@ function Bio(props){
     { collection: 'bio' }
   ]); 
    const b = useSelector(state => state.firestore.ordered.bio);
-  console.log(b)
 
-  console.log(b)
 
 
   if (isLoaded(b)) {

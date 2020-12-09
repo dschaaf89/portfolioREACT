@@ -2,60 +2,56 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useFirestore } from 'react-redux-firebase';
 
-function EditProjectForm(props){
-  const {project} = props;
+function EditJobForm(props){
+  const {job} = props;
   const firestore = useFirestore();
-  function handleEditProjectFormSubmission(event){
+  function handleEditJobFormSubmission(event){
+    console.log(event)
     event.preventDefault();
-    props.onEditProject();
+    props.onEditJob();
     const propsToUpdate =
       {
-        name:event.target.name.value,
-        repo:event.target.repo.value,
-        liveLink:event.target.liveLink.value,
-        languages:event.target.languages.value,
+        company:event.target.company.value,
+        jobTitle:event.target.jobTitle.value,
+        date:event.target.date.value,
         description:event.target.description.value
-        
       };
-    return firestore.update({collection: 'projects', doc:project.id}, propsToUpdate) 
+    return firestore.update({collection: 'jobs', doc:job.id}, propsToUpdate) 
   }
   return (
     <React.Fragment>
-      <form onSubmit = {handleEditProjectFormSubmission}>
+      <form onSubmit = {handleEditJobFormSubmission}>
         <input
           type='text'
-          name='name'
-          defaultValue={project.name} />
+          name='company'
+          defaultValue={job.company} />
         <input
           type='text'
-          name='repo'
-          defaultValue={project.repo} />
+          name='jobTitle'
+          defaultValue={job.jobTitle} />
 
       
         <input
           type='text'
-          name='liveLink'
-          defaultValue={project.liveLink} />
+          name='date'
+          defaultValue={job.date} />
 
-          <input
-          type='text'
-          name='languages'
-          defaultValue={project.languages} />
+          
 
           <textarea
           type='text'
           name='description'
-          defaultValue={project.description} />
+          defaultValue={job.description} />
 
         <button type='submit'>Submit</button>
       </form>
     </React.Fragment>
   )
 }
-EditProjectForm.propTypes = {
-  onProjectCreation: PropTypes.func
+EditJobForm.propTypes = {
+  onJobCreation: PropTypes.func
 }
-export default EditProjectForm;
+export default EditJobForm;
 
 
 // function EditTicketForm (props) {

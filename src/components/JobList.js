@@ -20,6 +20,8 @@ function JobList(props) {
             jobTitle={job.jobTitle}
             date={job.date}
             description={job.description}
+            id={job.id}
+            key={job.id}
             />
         })}
       </React.Fragment>

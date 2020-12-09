@@ -1,25 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Education from "./education";
+import Education from "./Education";
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 function EducationList(props) {
+  console.log(props.onEducationSelection);
   useFirestoreConnect([
     { collection: 'education' }
   ]);
-  const education = useSelector(state => state.firestore.ordered.education);
-  if (isLoaded(education)) {
+   const education = useSelector(state => state.firestore.ordered.education);
+   if (isLoaded(education)) {
     return (
       <React.Fragment>
         <hr />
         {education.map((x) => {
           return <Education
-            whenJobClicked={x.onJobSelection}
+            whenEducationClicked={props.onEducationSelection}
             school={x.school}
             areaOfStudy={x.areaOfStudy}
             dateRange={x.dateRange}
             description={x.description}
+            id = {x.id}
+            key = {x.id}
             />
         })}
       </React.Fragment>
@@ -34,7 +37,7 @@ function EducationList(props) {
 }
 
 EducationList.propTypes = {
-  onJobSelection: PropTypes.func
+  onEducationSelection: PropTypes.func
 };
 
 export default EducationList;

@@ -2,60 +2,53 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useFirestore } from 'react-redux-firebase';
 
-function EditProjectForm(props){
-  const {project} = props;
+function EditEducationForm(props){
+  const {education} = props;
   const firestore = useFirestore();
-  function handleEditProjectFormSubmission(event){
+  function handleEditEducationFormSubmission(event){
     event.preventDefault();
-    props.onEditProject();
+    props.onEditEducation();
     const propsToUpdate =
       {
         name:event.target.name.value,
-        repo:event.target.repo.value,
-        liveLink:event.target.liveLink.value,
-        languages:event.target.languages.value,
-        description:event.target.description.value
+     
         
       };
-    return firestore.update({collection: 'projects', doc:project.id}, propsToUpdate) 
+    return firestore.update({collection: 'education', doc:education.id}, propsToUpdate) 
   }
   return (
     <React.Fragment>
-      <form onSubmit = {handleEditProjectFormSubmission}>
+      <form onSubmit = {handleEditEducationFormSubmission}>
+      <input
+          type='text'
+          name='school'
+          defaultValue={education.school} />
         <input
           type='text'
-          name='name'
-          defaultValue={project.name} />
-        <input
-          type='text'
-          name='repo'
-          defaultValue={project.repo} />
+          name='areaOfStudy'
+          defaultValue={education.areaOfStudy} />
 
-      
         <input
           type='text'
-          name='liveLink'
-          defaultValue={project.liveLink} />
-
-          <input
-          type='text'
-          name='languages'
-          defaultValue={project.languages} />
+          name='dateRange'
+          defaultValue={education.dateRange} />
 
           <textarea
           type='text'
           name='description'
-          defaultValue={project.description} />
+          defaultValue={education.description} />
+
+        
 
         <button type='submit'>Submit</button>
       </form>
     </React.Fragment>
   )
 }
-EditProjectForm.propTypes = {
-  onProjectCreation: PropTypes.func
+EditEducationForm.propTypes = {
+  onEducationCreation: PropTypes.func
 }
-export default EditProjectForm;
+export default EditEducationForm;
 
 
 // function EditTicketForm (props) {

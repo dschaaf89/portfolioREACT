@@ -6,8 +6,7 @@ function JobForm(props){
   const firestore = useFirestore();
   function addJobToFirestore(event){
     event.preventDefault();
-    //props.OnJobCreation();
-    console.log(event)
+    props.onNewJobCreation();
     return firestore.collection('jobs').add(
       {
         company:event.target.company.value,
@@ -42,6 +41,6 @@ function JobForm(props){
   )
 }
 JobForm.propTypes = {
-  onJobCreation: PropTypes.func
+  onNewJobCreation: PropTypes.func
 }
 export default JobForm;

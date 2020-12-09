@@ -1,5 +1,5 @@
 
-import * as c from './../actions/ActionTypes';
+import * as c from './../actions/ActionType';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default(state = {}, action)=> {
   const {name,repo,liveLink,languages,description,id} = action;

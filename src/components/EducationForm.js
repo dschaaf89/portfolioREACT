@@ -6,8 +6,7 @@ function EducationForm(props){
   const firestore = useFirestore();
   function addEducationToFirestore(event){
     event.preventDefault();
-    //props.OnJobCreation();
-    console.log(event)
+    props.onNewEducationCreation();
     return firestore.collection('education').add(
       {
         school:event.target.school.value,
@@ -43,6 +42,6 @@ function EducationForm(props){
   )
 }
 EducationForm.propTypes = {
-  onJobCreation: PropTypes.func
+  onNewEducationCreation: PropTypes.func
 }
 export default EducationForm;
