@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFirestore, isLoaded  } from 'react-redux-firebase';
+import { withFirestore, isLoaded } from 'react-redux-firebase';
 import JobForm from './JobForm';
 import JobList from './JobList';
 import EditJobForm from './EditJobForm'
@@ -16,7 +16,7 @@ class JobController extends React.Component {
   }
 
   handleJobClick = () => {
-   
+   console.log('hererere')
     if (this.state.selectedJob != null) {
       this.setState({
         selectedJob: null,
@@ -69,33 +69,58 @@ class JobController extends React.Component {
     });
   }
   render() {
-    let currentlyVisibleState = null;
-    let buttonText = null;
-    if (this.state.editing ) {      
-      currentlyVisibleState = <EditJobForm job = {this.state.selectedJob} onEditJob = {this.handleEditingJobInList} />
-      buttonText = "Return to Job List";
-    } else if (this.state.selectedJob != null) {
-      currentlyVisibleState = 
-      <JobDetail 
-        job = {this.state.selectedJob} 
-        onClickingDelete = {this.handleDeletingJob} 
-        onClickingEdit = {this.handleEditJobClick} />
-      buttonText = "Return to Job List";
-    } else if (this.props.jobFormVisibleOnPage) {
-      currentlyVisibleState = <JobForm onNewJobCreation={this.handleAddingNewJobToList}  />;
-      buttonText = "Return to job List";
-    } else {
-      currentlyVisibleState = <JobList  onJobSelection={this.handleChangingSelectedJob} />;
-      buttonText = "Add Job";
+    const auth = this.props.firebase.auth();
+    console.log(this.props)
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      )
     }
-    return (
-      <React.Fragment>
-        {currentlyVisibleState}
-        <button onClick={this.handleJobClick}>{buttonText}</button>
-      </React.Fragment>
-    );
+    console.log('test')
+    // if ((isLoaded(auth)) && (auth.currentUser != null)) {
+      let currentlyVisibleState = null;
+      let buttonText = null;
+      if (this.state.editing ) {      
+        currentlyVisibleState = <EditJobForm job = {this.state.selectedJob} onEditJob = {this.handleEditingJobInList} />
+        buttonText = "Return to Job List";
+      } else if (this.state.selectedJob != null) {
+        currentlyVisibleState = 
+        <JobDetail 
+          onClickReturn = {this.handleJobClick}
+          job = {this.state.selectedJob} 
+          onClickingDelete = {this.handleDeletingJob} 
+          onClickingEdit = {this.handleEditJobClick} />
+        buttonText = "Return to Job List";
+      } else if (this.props.jobFormVisibleOnPage) {
+        currentlyVisibleState = <JobForm onNewJobCreation={this.handleAddingNewJobToList}  />;
+        buttonText = "Return to job List";
+      } else {
+        currentlyVisibleState = <JobList  onJobSelection={this.handleChangingSelectedJob} />;
+        buttonText = "Add Job";
+      }
+      console.log(((isLoaded(auth)) && (auth.currentUser == null)))
+
+      if ((isLoaded(auth)) && (auth.currentUser == null)) {
+        return (
+          <React.Fragment>
+            {currentlyVisibleState}
+          </React.Fragment>
+        )
+      } 
+      else {
+        return (
+        <React.Fragment>
+          {currentlyVisibleState}
+          <button onClick={this.handleJobClick}>{buttonText}</button>
+        </React.Fragment>
+      )
+      }
     }
-}
+  }
+// }
+
 JobController.propTypes ={
 
 }

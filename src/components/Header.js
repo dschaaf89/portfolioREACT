@@ -5,20 +5,38 @@ import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import * as ReactBootStrap from "react-bootstrap";
 
 function Header() {
   return (
         
-      <Navbar bg="primary" variant="dark">
-        <Navbar.Brand href="/">Portfolio</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/Bio">Bio</Nav.Link>
-          <Nav.Link href="/Job">Jobs</Nav.Link>
-          <Nav.Link href="/Education">Education</Nav.Link>
-          <Nav.Link href="/Project">Projects</Nav.Link>
-          <Nav.Link href="/Skill">Skills</Nav.Link>
-        </Nav>
-      </Navbar>
+      <ReactBootStrap.Navbar bg="primary" variant="dark">
+        <ReactBootStrap.Navbar.Brand href="/">Portfolio</ReactBootStrap.Navbar.Brand>
+        <ReactBootStrap.Nav  className="mr-auto">
+          <Link to ="/Bio">
+          <ReactBootStrap.Nav.Link href= "#Bio">Bio</ReactBootStrap.Nav.Link>
+          </Link>
+          <Link to ="/Job">
+          <ReactBootStrap.Nav.Link href ="#Job">Job </ReactBootStrap.Nav.Link>
+          </Link>
+          <Link to ="/Education">
+          <ReactBootStrap.Nav.Link href="#Education">Education</ReactBootStrap.Nav.Link>
+          </Link>
+          <Link to ="/Project">
+          <ReactBootStrap.Nav.Link href="#Project">Projects</ReactBootStrap.Nav.Link>
+          </Link>
+          <Link to ="/Skill">
+          <ReactBootStrap.Nav.Link href="#Skill">Skills</ReactBootStrap.Nav.Link>
+          </Link>
+        </ReactBootStrap.Nav >
+        <ReactBootStrap.Nav >
+          <ReactBootStrap.Nav.Link href="/SignIn">SignIn</ReactBootStrap.Nav.Link>
+        </ReactBootStrap.Nav >
+      </ReactBootStrap.Navbar>
+
+      
+    
       
      
    

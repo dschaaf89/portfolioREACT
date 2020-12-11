@@ -9,7 +9,7 @@ import firebase from "./firebase";
 import { createStore } from 'redux';
 import rootReducer from './reducers/index';
 import { Provider } from 'react-redux';
-
+import 'firebase/auth';
 
 const store = createStore(rootReducer);
 

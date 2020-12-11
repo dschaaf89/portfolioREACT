@@ -22,7 +22,7 @@ class SkillController extends React.Component {
         editing: false
       });
     } else {
-      const { dispatch } = this.props;
+      const { dispatch } = this.props; 
       const action = a.toggleSkillForm();
       dispatch(action);
     }
@@ -62,6 +62,15 @@ class SkillController extends React.Component {
     });
   }
   render() {
+    const auth = this.props.firebase.auth();
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      )
+    }
+    
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.editing ) {      
@@ -72,7 +81,8 @@ class SkillController extends React.Component {
       <SkillDetail 
         skill = {this.state.selectedSkill} 
         onClickingDelete = {this.handleDeletingSkill} 
-        onClickingEdit = {this.handleEditSkillClick} />
+        onClickingEdit = {this.handleEditSkillClick} 
+        onClickReturn = {this.handleSkillClick}/>
       buttonText = "Return to Skill List";
     } else if (this.props.skillFormVisibleOnPage) {
       currentlyVisibleState = <SkillForm onNewSkillCreation={this.handleAddingNewSkillToList}  />;
@@ -81,14 +91,23 @@ class SkillController extends React.Component {
       currentlyVisibleState = <SkillList  onSkillSelection={this.handleChangingSelectedSkill} />;
       buttonText = "Add Skill";
     }
+    if ((isLoaded(auth)) && (auth.currentUser == null)) {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <button onClick={this.handleSkillClick}>{buttonText}</button>
       </React.Fragment>
-    );
+    )
+    }else{
+      return (
+      <React.Fragment>
+      {currentlyVisibleState}
+      <button onClick={this.handleSkillClick}>{buttonText}</button>
+    </React.Fragment>
+      )
     }
 }
+}
+
 SkillController.propTypes ={
 
 }

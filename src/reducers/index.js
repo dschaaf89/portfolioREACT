@@ -4,6 +4,7 @@ import skillFormReducer from './skill-form-reducer';
 import educationFormReducer from './education-form-reducer';
 import skillsListReducer from './skill-list-reducer';
 import jobFormReducer from './job-form-reducer';
+import bioFormReducer from './bio-form-reducer';
 import projectFormReducer from './project-form-reducer';
 import { firestoreReducer } from 'redux-firestore';
 import { combineReducers } from 'redux';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   projectFormVisibleOnPage:projectFormReducer,
   skillFormVisibleOnPage:skillFormReducer,
   jobFormVisibleOnPage:jobFormReducer,
+  bioFormVisibleOnPage:bioFormReducer,
   educationFormVisibleOnPage:educationFormReducer,
   firestore:firestoreReducer
 });

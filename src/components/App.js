@@ -3,18 +3,22 @@ import ProjectController from './ProjectController';
 import EducationController from './EducationController';
 import JobController from './JobController';
 import SkillController from './SkillController'; 
-import Bio from './Bio'; 
+import BioController from './BioController'; 
 import Header from './Header';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Signin from "./Signin";
+import Footer from './Footer'
 function App() {
   return ( 
     <React.Fragment>
       <Router>
         <Header />
         <Switch>
-        
+        <Route path="/Signin">
+            <Signin />
+          </Route>
           <Route path="/Bio">
-            <Bio />
+            <BioController />
           </Route>
           <Route path="/Job">
             <JobController/>
@@ -31,11 +35,14 @@ function App() {
 
           {/* use for splash page */}
           <Route path="/">
-            <Bio />
+            <BioController />
           </Route>
-          
+
         </Switch>
       </Router>
+      <div id="footer">
+          <Footer />
+        </div>
     </React.Fragment>
 
   );

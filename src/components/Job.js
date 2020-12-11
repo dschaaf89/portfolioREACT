@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Jobs(props){
-  console.log(props)
   return(
   <React.Fragment>
     <div onClick = {() => props.whenJobClicked(props.id)}>

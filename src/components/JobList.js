@@ -9,6 +9,7 @@ function JobList(props) {
     { collection: 'jobs' }
   ]);
   const jobs = useSelector(state => state.firestore.ordered.jobs);
+  console.log(jobs)
   if (isLoaded(jobs)) {
     return (
       <React.Fragment>

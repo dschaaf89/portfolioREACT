@@ -23,6 +23,9 @@ export const toggleProjectForm = () => ({
 export const toggleSkillForm = () => ({
   type: c.TOGGLE_SKILL_FORM
 });
+export const toggleBioForm = () => ({
+  type: c.TOGGLE_BIO_FORM
+});
 export const toggleEducationForm = () => ({
   type: c.TOGGLE_EDUCATION_FORM
 });

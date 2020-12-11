@@ -67,6 +67,14 @@ class ProjectController extends React.Component {
     });
   }
   render() {
+    const auth = this.props.firebase.auth();
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      )
+    }
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.editing ) {      
@@ -77,7 +85,8 @@ class ProjectController extends React.Component {
       <ProjectDetail 
         project = {this.state.selectedProject} 
         onClickingDelete = {this.handleDeletingProject} 
-        onClickingEdit = {this.handleEditProjectClick} />
+        onClickingEdit = {this.handleEditProjectClick}
+        onClickReturn = {this.handleProjectClick}/>
       buttonText = "Return to Project List";
     } else if (this.props.projectFormVisibleOnPage) {
       currentlyVisibleState = <ProjectForm onNewProjectCreation={this.handleAddingNewProjectToList}  />;
@@ -86,13 +95,21 @@ class ProjectController extends React.Component {
       currentlyVisibleState = <ProjectList  onProjectSelection={this.handleChangingSelectedProject} />;
       buttonText = "Add Project";
     }
+    if ((isLoaded(auth)) && (auth.currentUser == null)) {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <button onClick={this.handleProjectClick}>{buttonText}</button>
       </React.Fragment>
     );
+    }else{
+      return (
+        <React.Fragment>
+          {currentlyVisibleState}
+          <button onClick={this.handleProjectClick}>{buttonText}</button>
+        </React.Fragment>
+      );
     }
+}
 }
 ProjectController.propTypes ={
 

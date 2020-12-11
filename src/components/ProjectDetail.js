@@ -1,24 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withFirestore ,isLoaded} from 'react-redux-firebase';
 
-function JobDetail(props){
-  const { job, onClickingDelete } = props;
+function ProjectDetail(props){
+  const { project, onClickingDelete } = props;
+  if ((isLoaded(props.firebase.auth())) && (props.firebase.auth().currentUser == null)) {
   return(
     <React.Fragment>
-      <h1>Job Detail</h1>
-      <h3>{job.name} - {job.languages}</h3>
-      <p><em>{job.repo}</em></p>
-      <p><em>{job.liveLink}</em></p>
-      <p><em>{job.description}</em></p>
-      <button onClick={ props.onClickingEdit }>Update Job</button>
-      <button onClick={()=> onClickingDelete(job.id) }>Delete job</button>
+      <h1>Project Detail</h1>
+      <h3>{project.name} - {project.languages}</h3>
+      <p><em>{project.repo}</em></p>
+      <p><em>{project.liveLink}</em></p>
+      <p><em>{project.description}</em></p>
+      <button onClick={ props.onClickReturn }>Return to List</button>
     </React.Fragment>
   );
+}else{
+  return(
+    <React.Fragment>
+      <h1>Project Detail</h1>
+      <h3>{project.name} - {project.languages}</h3>
+      <p><em>{project.repo}</em></p>
+      <p><em>{project.liveLink}</em></p>
+      <p><em>{project.description}</em></p>
+      <button onClick={ props.onClickingEdit }>Update Project</button>
+      <button onClick={()=> onClickingDelete(project.id) }>Delete project</button>
+    </React.Fragment>
+  );
+  }
 }
-JobDetail.propTypes = {
-  job: PropTypes.object,
+
+ProjectDetail.propTypes = {
+  project: PropTypes.object,
   onClickingDelete:PropTypes.func,
   onClickingEdit:PropTypes.func
 }
 
-export default JobDetail;
+export default withFirestore(ProjectDetail);

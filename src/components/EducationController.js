@@ -66,6 +66,16 @@ class EducationController extends React.Component {
     });
   }
   render() {
+    const auth = this.props.firebase.auth();
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      )
+    }
+   
+    
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.editing ) {      
@@ -74,6 +84,7 @@ class EducationController extends React.Component {
     } else if (this.state.selectedEducation != null) {
       currentlyVisibleState = 
       <EducationDetail 
+        onClickReturn = {this.handleEducationClick}
         education = {this.state.selectedEducation} 
         onClickingDelete = {this.handleDeletingEducation} 
         onClickingEdit = {this.handleEditEducationClick} />
@@ -85,13 +96,23 @@ class EducationController extends React.Component {
       currentlyVisibleState = <EducationList  onEducationSelection={this.handleChangingSelectedEducation} />;
       buttonText = "Add Education";
     }
-    return (
+    if ((isLoaded(auth)) && (auth.currentUser == null)) {
+      return (
+        <React.Fragment>
+          {currentlyVisibleState}
+        </React.Fragment>
+      )
+    } 
+    else {
+      return (
       <React.Fragment>
         {currentlyVisibleState}
         <button onClick={this.handleEducationClick}>{buttonText}</button>
       </React.Fragment>
-    );
+    )
     }
+    
+}
 }
 EducationController.propTypes ={
 
